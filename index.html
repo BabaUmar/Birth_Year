@@ -5,18 +5,99 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birth year </title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <center>
-    <form style="margin-top: 100px;"> 
+    <h1>BIRTH YEAR CALCULATOR</h1>
+    <form style="margin-top: 50px;"> 
         <input style="height:30px; width:400px; padding-left:10px;" placeholder="Type your age..." type="number" name ="number" id ="number"/>
         <input style="height: 35px;" type="button" value ="Find Year" id ="button"/>
         </form>
     </center>
-    <center><p id= "year">Year</p></center>
+    <center><h3><p id= "year">Year</p></h3></center>
+    <center>
+    <div id="home" class="flex-center flex-column">
+        <h1>Years between dates</h1>
+       <h3> <p>Old date:</p><input type="date" placeholder="dd/mm/yy" id="input_1_2"></h3>
+        <h3><p>New date:</p><input type="date" placeholder="dd/mm/yy" id="input_1_3"></h3>
+        <input type="submit" class="btn" id="submit_1_2">
+        <h3><p id="paragraph_2"> </p></h3>
+      </div>
+    </center>
+    
+        
     <script type="text/javascript">
-    document.getElementById("year").style.display = "none";
-    document.getElementById("button").onclick = function() { calculategit ();  };
+
+    function calculate(){
+
+    var number = document.getElementById("number").value;
+    if (number == "" || number==0) {
+        window.alert("Please type your correct age");
+        return;
+    }
+    var date = new Date().getFullYear();
+
+    var birthyear = date - number;
+    document.getElementById("year").style.display = "block";
+    document.getElementById("year").innerHTML = "Your birth year is" + birthyear;
+}  
+  document.getElementById("button").onclick = function() { calculate();  };
+
+
+  // year calculation
+const yearSubmitButton = document.getElementById('submit_1_2');
+console.log(yearSubmitButton);
+
+function displayYearsBetweenDates(){
+    const dateValue_1 = document.getElementById('input_1_2').value + "";
+    const dateValue_2 = document.getElementById('input_1_3').value + "";
+    console.log(dateValue_1); 
+    console.log(dateValue_2); 
+
+    //first date
+    const date1year = dateValue_1.slice(0,4);
+    console.log(date1year);
+    const date1month = dateValue_1.slice(5,7);
+    console.log(date1month);
+    const date1day = dateValue_1.slice(8,11);
+    console.log(date1day);
+
+    //second date
+    const date2year = dateValue_2.slice(0,4);
+    console.log(date2year);
+    const date2month = dateValue_2.slice(5,7);
+    console.log(date2month);
+    const date2day = dateValue_2.slice(8,11);
+    console.log(date2day);
+    const paraText_1 = document.getElementById('paragraph_2');
+
+
+    var date1, date2;  
+    //define two date object variables with dates inside it   
+    date1 = new Date(date1month+"/"+date1day+"/"+date1year);    
+    date2 = new Date(date2month+"/"+date2day+"/"+date2year);  
+
+    //calculate time difference  
+    var time_difference = date2.getTime() - date1.getTime();  
+
+    //calculate days difference by dividing total milliseconds in a day  
+    var days_difference = time_difference / (1000 * 60 * 60 * 24);  
+      
+    // document.write("Number of days between dates <br>" +   
+    //                 date1 + " and <br>" + date2 + " are: <br>"   
+    //                 + days_difference + " days");  
+
+    // const date = new Date().getFullYear();
+    // const userAge = date - ageValue;
+
+    paraText_1.innerHTML = `Number of years between the two dates is<br>   
+    ${Math.round(days_difference/365)} years`;
+}
+
+yearSubmitButton.addEventListener('click', displayYearsBetweenDates);
+
+
     </script>
 </body>
 </html>
